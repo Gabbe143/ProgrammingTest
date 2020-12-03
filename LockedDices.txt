@@ -1,0 +1,97 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp8
+{
+    class Program
+    {
+        static void LockDice()
+        {
+            return;
+        }
+        static void Main(string[] args)
+        {
+            int rolls = 2;
+            
+            Random Numbers = new Random();
+            bool AnotherLock = true;
+            bool AnotherUnlock = true;
+
+            List<int> Dices = new List<int>();
+            List<bool> DicesLocked = new List<bool>();
+            
+            for(int i = 0; i < 5; i++)
+            {
+                Dices.Add(Numbers.Next(1, 7));
+                DicesLocked.Add(false);
+                Console.WriteLine("Dice " + (i+1) + " has the value: " +Dices[i] + " ");
+            }
+
+            while (rolls > 0)
+            {
+                Console.WriteLine("You have " + rolls + " rolls left");
+                Console.WriteLine("Would you like to lock any dices?");
+                string AnswerLock = Console.ReadLine().ToUpper();
+                if (AnswerLock == "YES")
+                {
+                    while (AnotherLock)
+                    {
+                        Console.WriteLine("Which dice would you like to lock?");
+                        int LockedDice = int.Parse(Console.ReadLine());
+                        DicesLocked[LockedDice - 1] = true;
+                        Console.WriteLine("Do you wanna lock any more dices?");
+                        AnswerLock = Console.ReadLine().ToUpper();
+                        if (AnswerLock == "NO")
+                        {
+                            AnotherLock = false;
+                        }
+                        else if (AnswerLock == "YES")
+                        {
+                            AnotherLock = true;
+                        }
+                    }
+                }
+                Console.WriteLine("Would you like to unlock any dices");
+                string AnswerUnlock = Console.ReadLine().ToUpper();
+                if (AnswerUnlock == "YES")
+                {
+                    while (AnotherUnlock)
+                    {
+                        Console.WriteLine("Which dice would you like to unlock?");
+                        int UnlockedDice = int.Parse(Console.ReadLine());
+                        DicesLocked[UnlockedDice - 1] = false;
+                        Console.WriteLine("Do you wanna unlock and more dices?");
+                        AnswerUnlock = Console.ReadLine().ToUpper();
+                        if (AnswerUnlock == "NO")
+                        {
+                            AnotherUnlock = false;
+                        }
+                        else if (AnswerUnlock == "YES")
+                        {
+                            AnotherUnlock = true;
+                        }
+                    } 
+                }
+                for (int i = 0; i < Dices.Count; i++)
+                {
+
+                    if (DicesLocked[i] == false)
+                    {
+                        Dices[i] = Numbers.Next(1, 7);
+                    }
+                    Console.WriteLine("Dice " + (i + 1) + " has the value: " + Dices[i] + " ");
+                }
+                rolls--;
+            }
+            int Sum = 0;
+            for (int i = 0; i < Dices.Count; i++)
+            {
+                Sum = Dices[i] + Sum;
+            }
+            Console.WriteLine("The sum of your dices are " + Sum);
+        }
+    }
+}

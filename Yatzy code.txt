@@ -1,0 +1,122 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Yatzy
+{
+    class Program
+    {
+        static Random number = new Random();
+        static void Main(string[] args)
+        {
+            int ok = 0;
+            string answer = "answer";
+            int chance_value = 0;
+            string one_pair;
+            List<bool> Locked_dices = new List<bool>();
+            List<int> dice = new List<int>();
+            List<bool> Used_section = new List<bool>();
+            List<string> oppotunity = new List<string>();
+            
+
+            
+            
+            while (ok < 17)
+            {
+                Console.Write("Your dices are ");
+                for (int i = 0; i < 5; i++)
+                {
+                    dice.Add(number.Next(1, 7));
+                    Console.Write(dice[i] + " ");
+                    Locked_dices.Add(false);
+                }
+                for (int i = 0; i < 17; i++)
+                {
+                    Used_section.Add(false);
+                }
+                Console.WriteLine("\nWhat do you wanna do?");
+                Console.WriteLine("1. One pair \n2. Two pairs \n3. 3-number \n4. 4-number \n5. Small stright \n6. Big stright \n7. Full-house \n8. Chance \n9. 1-6 \n10. Save numbers \n11. Yatzy");
+                int option = int.Parse(Console.ReadLine());
+                while (Used_section[option] == true)
+                {
+                    Console.WriteLine("You've already used this section, try again");
+                    option = int.Parse(Console.ReadLine());
+                }
+                switch (option)
+                {  
+                    case 1:
+                        Console.WriteLine("Vilka index vill du välja?");
+                        one_pair = Console.ReadLine();
+                        one_pair.Substring(0, 2);
+                        Used_section[option - 1] = true;
+                        ok++;
+                        break;
+                    case 2:
+                        int two_pairs = int.Parse(Console.ReadLine());
+                        Used_section[option - 1] = true;
+                        ok++;
+                        break;
+                    case 3:
+                        int three_number = int.Parse(Console.ReadLine());
+                        Used_section[option - 1] = true;
+                        ok++;
+                        break;
+                    case 4:
+                        int four_number = int.Parse(Console.ReadLine());
+                        Used_section[option - 1] = true;
+                        ok++;
+                        break;
+                    case 5:
+                        int small_stright = int.Parse(Console.ReadLine());
+                        Used_section[option - 1] = true;
+                        ok++;
+                        break;
+                    case 6:
+                        int big_stright = int.Parse(Console.ReadLine());
+                        Used_section[option - 1] = true;
+                        ok++;
+                        break;
+                    case 7:
+                        int full_house = int.Parse(Console.ReadLine());
+                        Used_section[option - 1] = true;
+                        ok++;
+                        break;
+                    case 8:
+                        int chance = int.Parse(Console.ReadLine());
+                        for (int i = 0; i < dice.Count; i++)
+                        {
+                            chance_value = chance_value + dice[i];
+                        }
+                        Used_section[option - 1] = true;
+                        ok++;
+                        break;
+                    case 9:
+                        int one_to_six = int.Parse(Console.ReadLine());
+                        break;
+                    case 10:
+                        do
+                        {
+                            Console.WriteLine("What dice do you wanna save?");
+                            int place = int.Parse(Console.ReadLine());
+                            Locked_dices[place] = true;
+                            Console.WriteLine("Do you wanna save any more dices?");
+                            answer = Console.ReadLine().ToLower();
+
+                        } while (answer == "yes");
+                        Used_section[option - 1] = true;
+                        ok++;
+                        break;
+
+                    case 11:
+                        int yatzy = int.Parse(Console.ReadLine());
+                        Used_section[option - 1] = true;
+                        ok++;
+                        break;
+
+                }
+            }
+        }
+    }
+}
